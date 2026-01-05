@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+      // GitHub PagesのSPAルーティング対応
+      // すべてのルートをindex.htmlにフォールバック
+      const base = '/samurai-ml-education-game';
+      const currentPath = window.location.pathname;
+      const search = window.location.search;
+      const hash = window.location.hash;
+      
+      // 無限ループを防ぐ: index.htmlが複数含まれている場合は停止
+      if (currentPath.split('/index.html').length > 2) {
+        // 無限ループを検出した場合は、baseパスにリダイレクト
+        window.location.replace(base + '/' + search + hash);
+      } else {
+        // baseパスを除去して実際のパスを取得
+        let path = currentPath.replace(base, '') || '/';
+        
+        // index.htmlが既に含まれている場合は除去（単一の場合のみ）
+        path = path.replace(/\/index\.html$/, '');
+        
+        // クエリパラメータとハッシュを保持してbase/index.htmlにリダイレクト
+        // React Routerが正しいルートを処理できるように、パスを含める
+        const redirectUrl = base + '/index.html' + (path === '/' ? '' : path) + search + hash;
+        window.location.replace(redirectUrl);
+      }
+    </script>
+    <meta http-equiv="refresh" content="0; url=/samurai-ml-education-game/">
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>
+
